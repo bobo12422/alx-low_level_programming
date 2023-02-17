@@ -6,8 +6,7 @@
 /**
  * main - Entry point of the program
  *
- * This function generates a random number and determines whether it is
- * positive, negative, or zero. It then prints out the result.
+ * This function prints the alphabet in lowercase and then in uppercase.
  *
  * Return: Always 0 (Success)
  */
@@ -30,3 +29,4 @@ int main(void)
 		}
 	putchar('\n');
 	return(0);
+}
