@@ -7,21 +7,21 @@
  **/
 int main(void)
 {
-        int num;
+    int num;
 
-        for (num = 0; num <= 9; num++)
+    for (num = 0; num <= 9; num++)
+    {
+        putchar(num + '0');
+
+        if (num < 9)
         {
-                putchar(num + '0');
-
-                if (num < 9)
-                {
-                        putchar(',');
-                        putchar(' ');
-                }
+            putchar(',');
+            putchar(' ');
         }
+    }
 
-        putchar('\n');
+    putchar('\n');
 
-        return (0);
+    return (0);
 }
 
