@@ -3,29 +3,21 @@
 /**
  * main - Entry point of the program
  *
- * Description: This program prints the lowercase alphabet, then the
- * uppercase alphabet, followed by a newline character, using only the
- * putchar function.
+ * Description: This function prints the alphabet in lowercase,
+ * and then in uppercase, followed by a new line.
  *
  * Return: Always 0 (success)
- **/
+ */
 int main(void)
 {
     char c;
 
-    /* Print lowercase alphabet */
-    for (c = 'a'; c <= 'z'; c++)
-    {
+    for (c = 'a'; c <= 'z'; ++c)
         putchar(c);
-    }
 
-    /* Print uppercase alphabet */
-    for (c = 'A'; c <= 'Z'; c++)
-    {
+    for (c = 'A'; c <= 'Z'; ++c)
         putchar(c);
-    }
 
-    /* Print newline character */
     putchar('\n');
 
     return (0);
