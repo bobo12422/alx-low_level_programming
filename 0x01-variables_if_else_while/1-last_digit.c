@@ -3,13 +3,13 @@
 #include <stdio.h>
 
 /**
- * main - Entry point of the program
+ * main - Entry point of the program.
  *
  * Description: This program generates a random integer, computes its
  * last digit, and prints a message indicating whether the last digit
  * is greater than 5, equal to 0, or less than 6 and not equal to 0.
  *
- * Return: Always 0 (success)
+ * Return: Always 0 (success).
  **/
 int main(void)
 {
@@ -25,15 +25,14 @@ int main(void)
     {
         printf("Last digit of %d is %d and is greater than 5\n", n, m);
     }
-    if (m == 0)
+    else if (m == 0)
     {
         printf("Last digit of %d is %d and is 0\n", n, m);
     }
-    if (m < 6 && m != 0)
+    else
     {
         printf("Last digit of %d is %d and is less than 6 and not 0\n", n, m);
     }
 
-    return (0);
+    return 0;
 }
-
