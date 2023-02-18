@@ -6,15 +6,15 @@
  * main - Entry point of the program
  *
  * Description: This program generates a random integer, computes its
- *              last digit, and prints a message indicating whether the last digit
- *              is greater than 5, equal to 0, or less than 6 and not equal to 0.
+ * last digit, and prints a message indicating whether the last digit
+ * is greater than 5, equal to 0, or less than 6 and not equal to 0.
  *
  * Return: Always 0 (success)
  **/
 int main(void)
 {
-        int n;
-        int m;
+       int n;
+       int m;
 
         srand(time(0));
         n = rand() - RAND_MAX / 2;
