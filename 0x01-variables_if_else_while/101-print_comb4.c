@@ -1,4 +1,6 @@
-iint main(void)
+#include <stdio.h>
+
+int main(void)
 {
     int i, j, k;
 
@@ -21,6 +23,6 @@ iint main(void)
     }
     putchar('\n');
 
-    return (0);
+    return 0;
 }
 
