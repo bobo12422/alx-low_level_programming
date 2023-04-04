@@ -1,28 +1,23 @@
-#include <stdio.h>
 #include "lists.h"
 
-int main(void)
+/**
+* print_listint - Prints all the elements of a listint_t list
+* @h: Pointer to the head node of the list
+*
+* Return: The number of nodes in the list
+*/
+
+size_t print_listint(const listint_t *h)
 {
-    listint_t *head = NULL;
-    listint_t *new_node;
-    int i;
+size_t num_nodes = 0;
 
-    for (i = 0; i < 10; i++)
-    {
-        new_node = malloc(sizeof(listint_t));
-        if (new_node == NULL)
-        {
-            printf("Error: malloc failed\n");
-            return (1);
-        }
-        new_node->n = i;
-        new_node->next = head;
-        head = new_node;
-    }
+while (h != NULL)
+{
+printf("%d\n", h->n);
+num_nodes++;
+h = h->next;
+}
 
-    printf("Printing list:\n");
-    print_listint(head);
-
-    return (0);
+return (num_nodes);
 }
 
