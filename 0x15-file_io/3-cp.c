@@ -1,104 +1,69 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <main.h>
 
 #define BUF_SIZE 1024
 
-int open_file(char *file_name, int mode, mode_t permission);
-void copy_file(int fd_from, int fd_to, char *file_name_from, char *file_name_to);
-void close_file(int fd, char *file_name);
+/**
+* close_file - close an opened file
+* @FD: file descriptor.
+*
+* Return: nothing.
+*/
+
+void close_file(int FD)
+{
+if (close(FD) == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", FD);
+exit(100);
+}
+}
 
 /**
-* main - Copies the content of a file to another file
-* @argc: Number of arguments
-* @argv: Array of arguments
-* Return: 0 on success, otherwise 97, 98, 99 or 100
+* main - entry point
+* @argc: number of arguments passed to the function.
+* @argv: two files.
+*
+* Return: integer number.
 */
-int main(int argc, char **argv)
+
+int main(int argc, char *argv[])
 {
-int fd_from, fd_to;
+int inputFD, outputFD, nBytes_read, nBytes_write;
+char text[BUF_SIZE];
 
 if (argc != 3)
 {
-dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
 exit(97);
 }
-
-fd_from = open_file(argv[1], O_RDONLY, 0);
-fd_to = open_file(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-
-copy_file(fd_from, fd_to, argv[1], argv[2]);
-
-close_file(fd_from, argv[1]);
-close_file(fd_to, argv[2]);
-
-return (0);
-}
-
-/**
-* open_file - opens a file
-* @file_name: name of file to open
-* @mode: mode to open file
-* @permission: permission to open file
-* Return: file descriptor of opened file
-*/
-int open_file(char *file_name, int mode, mode_t permission)
+inputFD = open(argv[1], O_RDONLY);
+if (inputFD == -1)
 {
-int fd = open(file_name, mode, permission);
-
-if (fd == -1)
-{
-dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_name);
+dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 exit(98);
 }
-
-return (fd);
-}
-
-/**
-* copy_file - copies content of one file to another file
-* @fd_from: file descriptor of file to copy from
-* @fd_to: file descriptor of file to copy to
-* @file_name_from: name of file to copy from
-* @file_name_to: name of file to copy to
-*/
-void copy_file(int fd_from, int fd_to, char *file_name_from, char *file_name_to)
+outputFD = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+if (outputFD == -1)
 {
-ssize_t read_count, write_count;
-char buf[BUF_SIZE];
-
-do {
-read_count = read(fd_from, buf, BUF_SIZE);
-if (read_count == -1)
-{
-dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_name_from);
-exit(98);
-}
-
-write_count = write(fd_to, buf, read_count);
-if (write_count == -1)
-{
-dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_name_to);
+dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 exit(99);
 }
-
-} while (read_count > 0);
-}
-
-/**
-* close_file - closes a file
-* @fd: file descriptor of file to close
-* @file_name: name of file to close
-*/
-void close_file(int fd, char *file_name)
+while ((nBytes_read = read(inputFD, text, BUF_SIZE)) > 0)
 {
-int close_status = close(fd);
-
-if (close_status == -1)
+nBytes_write = write(outputFD, text, nBytes_read);
+if (nBytes_write == -1)
 {
-dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-exit(100);
+dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+exit(99);
 }
+}
+if (nBytes_read == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+exit(98);
+}
+close_file(inputFD);
+close_file(outputFD);
+return (0);
 }
 
