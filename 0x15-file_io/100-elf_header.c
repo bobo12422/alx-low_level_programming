@@ -10,7 +10,7 @@
 void check_files(char *source, char *dest);
 
 /**
-* @brief Main function that implements the file copy operation.
+* line
 *
 * This function takes two file names as command line arguments - a source file
 * and a destination file - and copies the contents of the source file to the
@@ -20,10 +20,8 @@ void check_files(char *source, char *dest);
 * @param argv Array of strings representing the command line arguments.
 * @return Returns 0 on successful execution.
 */
-
-int main(int argc, char *argv[])
+int main(int argc, char *argv[]) // WARNING: line over 80 characters (82)
 {
-// Function body
 
 int input_fd, output_fd, read_size, write_size;
 char buffer[BUFFER_SIZE];
@@ -37,13 +35,15 @@ exit(97);
 check_files(argv[1], argv[2]);
 
 input_fd = open(argv[1], O_RDONLY);
-if (input_fd == -1) {
+if (input_fd == -1)
+{
 dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 exit(98);
 }
 
 output_fd = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-if (output_fd == -1) {
+if (output_fd == -1)
+{
 dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 exit(99);
 }
@@ -60,9 +60,18 @@ exit(99);
 
 close(input_fd);
 close(output_fd);
-return 0;
+return (0);
 }
 
+/**
+* check_files
+*
+* Checks if the files specified by the given source and destination paths exist.
+*
+* @param source The path to the source file to check.
+* @param dest The path to the destination file to check.
+* @return void
+*/
 void check_files(char *source, char *dest)
 {
 int source_fd, dest_fd;
@@ -75,7 +84,8 @@ exit(100);
 }
 
 source_fd = open(source, O_RDONLY);
-if (source_fd == -1) {
+if (source_fd == -1)
+{
 dprintf(STDERR_FILENO, "Error: Can't open file %s\n", source);
 exit(98);
 }
